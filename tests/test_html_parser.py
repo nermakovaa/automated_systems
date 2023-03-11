@@ -4,7 +4,7 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 from datetime import datetime
 
-from src.html_parser import parse_url
+from src.html.html_parser import parse_url
 
 
 @pytest.fixture()

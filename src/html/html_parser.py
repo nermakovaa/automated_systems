@@ -8,7 +8,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup as BS
 
-from .date_parser import convert_to_datetime
+from ..date_parser import convert_to_datetime
 
 URL = "https://knife.media/category/news/"
 
@@ -46,6 +46,3 @@ def parse_url(first_page, last_page, save_table=True):
         table.to_csv(f"pages {first_page} - {last_page}.csv")
 
     return table
-
-
-print(parse_url(1, 1)['article_date'][0] == datetime.strptime("10/03/2023 18:21", "%d/%m/%Y %H:%M"))

@@ -2,7 +2,7 @@ import pytest
 from datetime import datetime
 
 from src.date_parser import convert_to_datetime
-from src.html_parser import parse_url
+from src.html.html_parser import parse_url
 
 
 @pytest.mark.parametrize(
