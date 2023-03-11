@@ -1,3 +1,4 @@
+from calendar import monthrange
 from datetime import datetime
 
 MONTH_MAP = {
@@ -30,7 +31,6 @@ def convert_to_datetime(date, time):
     else:
         raise TypeError(f"Unexpected date: {date}")
 
-    assert 1 <= day <= 31, "Incorrect day parsed"
     assert month_str in MONTH_MAP, "Incorrect month parsed"
     if year:
         assert year <= datetime.now().year, "Incorrect year parsed"
@@ -38,6 +38,9 @@ def convert_to_datetime(date, time):
         year = datetime.now().year
 
     month = MONTH_MAP[month_str]
+    month_days = monthrange(year, month)[1]
+    assert 1 <= day <= month_days, "Incorrect day parsed"
+
     hour, minute = map(int, time.split(":"))
 
     assert 0 <= hour <= 23, "Incorrect hour"

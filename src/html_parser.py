@@ -2,11 +2,13 @@ from collections import defaultdict
 from os.path import join
 from time import sleep
 
+from datetime import datetime  # del later
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup as BS
 
-from date_parser import convert_to_datetime
+from .date_parser import convert_to_datetime
 
 URL = "https://knife.media/category/news/"
 
@@ -18,7 +20,6 @@ def parse_url(first_page, last_page, save_table=True):
     assert last_page >= first_page, "Last page must be not less than first page"
 
     for page in range(first_page, last_page + 1):
-
         page_url = join(URL, f"page/{page}")
         req = requests.get(page_url)
         soup = BS(req.text, "lxml")
@@ -45,3 +46,6 @@ def parse_url(first_page, last_page, save_table=True):
         table.to_csv(f"pages {first_page} - {last_page}.csv")
 
     return table
+
+
+print(parse_url(1, 1)['article_date'][0] == datetime.strptime("10/03/2023 18:21", "%d/%m/%Y %H:%M"))
