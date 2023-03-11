@@ -2,8 +2,6 @@ from collections import defaultdict
 from os.path import join
 from time import sleep
 
-from datetime import datetime  # del later
-
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup as BS
