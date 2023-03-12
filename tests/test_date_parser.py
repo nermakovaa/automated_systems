@@ -31,6 +31,12 @@ def test_date_parser_valid_date(date, time, expected):
         ("9 майя 2021", "16:03"),  # invalid month
     ]    
 )
-def test_date_parses_invalid_date(date, time):
+def test_date_parser_invalid_date_assert(date, time):
     with pytest.raises(AssertionError):
-         convert_to_datetime(date, time)
+        convert_to_datetime(date, time)
+
+
+@pytest.mark.parametrize("date, time", [("01 января 20 22", "11:11")])
+def test_date_parser_invalid_date_typeerror(date, time):
+    with pytest.raises(TypeError):
+        convert_to_datetime(date, time)

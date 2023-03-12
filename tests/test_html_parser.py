@@ -7,12 +7,6 @@ from datetime import datetime
 from src.html.html_parser import parse_url
 
 
-@pytest.fixture()
-def load_reference_table():
-    df = pd.read_csv("reference_table.csv")
-    return df
-
-
 def convert_to_date(x):
     return datetime.strptime(x, "%Y-%m-%d %H:%M")
 
@@ -20,7 +14,7 @@ def convert_to_date(x):
 @pytest.mark.parametrize(
     "first_page, last_page, reference_table_path",
     [
-        (1, 1, "./tests/reference_table_1_1.csv")
+        (1, 1, "./tests/reference/reference_table_1_1.csv")
     ]
 )
 def test_html_parser_valid(first_page, last_page, reference_table_path):
