@@ -27,10 +27,6 @@ def test_html_parser_valid(first_page, last_page, reference_table_path):
     reference_table = pd.read_csv(reference_table_path, index_col="Unnamed: 0")
     reference_table["article_date"] = reference_table["article_date"].apply(convert_to_date)
 
-
-    print(reference_table.article_date)
-    print(parsed_table.article_date)
-
     assert_frame_equal(parsed_table, reference_table, check_like=True)
 
 
