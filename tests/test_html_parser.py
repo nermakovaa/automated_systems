@@ -1,8 +1,8 @@
-import pytest
-import pandas as pd
-
-from pandas.testing import assert_frame_equal
 from datetime import datetime
+
+import pandas as pd
+import pytest
+from pandas.testing import assert_frame_equal
 
 from src.html.html_parser import parse_url
 
@@ -13,19 +13,17 @@ def convert_to_date(x):
 
 @pytest.mark.parametrize(
     "first_page, last_page, reference_table_path",
-    [
-        (1, 1, "./tests/reference/reference_table_1_1.csv")
-    ]
+    [(1, 1, "./tests/reference/reference_table_1_1.csv")],
 )
 def test_html_parser_valid(first_page, last_page, reference_table_path):
     parsed_table = parse_url(
-        first_page=first_page,
-        last_page=last_page,
-        save_table=False
+        first_page=first_page, last_page=last_page, save_table=False
     )
 
     reference_table = pd.read_csv(reference_table_path, index_col="Unnamed: 0")
-    reference_table["article_date"] = reference_table["article_date"].apply(convert_to_date)
+    reference_table["article_date"] = reference_table["article_date"].apply(
+        convert_to_date
+    )
 
     assert_frame_equal(parsed_table, reference_table, check_like=True)
 
@@ -38,12 +36,8 @@ def test_html_parser_valid(first_page, last_page, reference_table_path):
         (1, 0),  # zero last_page
         (5, 3),  # last_page < first_page
         (2, -2),  # negative last_page
-    ]
+    ],
 )
 def test_html_parser_invalid(first_page, last_page):
     with pytest.raises(AssertionError):
-        parse_url(
-            first_page=first_page,
-            last_page=last_page,
-            save_table=False
-            )
+        parse_url(first_page=first_page, last_page=last_page, save_table=False)
