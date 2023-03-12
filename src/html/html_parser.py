@@ -44,3 +44,6 @@ def parse_url(first_page, last_page, save_table=True):
         table.to_csv(f"pages {first_page} - {last_page}.csv")
 
     return table
+
+
+parse_url(1, 1)
